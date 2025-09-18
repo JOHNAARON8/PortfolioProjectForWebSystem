@@ -1,13 +1,25 @@
-<div id="mobileMenu" class="fixed top-0 left-0 h-full w-64 bg-white/95 dark:bg-gray-800/95 backdrop-blur-md shadow-lg transform -translate-x-full transition-transform duration-300 z-50 p-6 flex flex-col gap-6">
-  <button id="closeMenu" class="self-end p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded transition-colors">
+<div id="mobileMenu" 
+     class="fixed top-0 left-0 h-full w-[180px] bg-10[rgb(255,192,203)] dark:bg-gray-800/95 backdrop-blur-md shadow-lg transform -translate-x-full transition-transform duration-300 z-50 p-6 flex flex-col gap-6">
+
+  <!-- Close Button -->
+  <button id="closeMenu" 
+          class="self-end p-2 rounded hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
     <i data-feather="x"></i>
   </button>
-  <a href="#about" class="hover:text-indigo-500 transition-colors">About</a>
-  <a href="#projects" class="hover:text-indigo-500 transition-colors">Projects</a>
-  <a href="#skills" class="hover:text-indigo-500 transition-colors">Skills</a>
-  <a href="#contact" class="hover:text-indigo-500 transition-colors">Contact</a>
-  <button id="darkToggleMobile" class="p-2 rounded-full border self-start hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+
+  <!-- Navigation Links -->
+  <nav class="flex flex-col gap-8 p-5">
+    <a href="#about" class="hover:text-indigo-500 font-semibold transition-colors">About</a>
+    <a href="#projects" class="hover:text-indigo-500 font-semibold transition-colors">Projects</a>
+    <a href="#skills" class="hover:text-indigo-500 font-semibold transition-colors">Skills</a>
+    <a href="#contact" class="hover:text-indigo-500 font-semibold transition-colors">Contact</a>
+  </nav>
+
+  <!-- Dark/Light Toggle -->
+  <button id="darkToggleMobile" 
+          class="mt-auto p-2 border border-black rounded-full self-end hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
     <i data-feather="moon"></i>
   </button>
 </div>
 
+ 

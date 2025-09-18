@@ -26,6 +26,42 @@ document.addEventListener('DOMContentLoaded', async function () {
   if (window.feather && typeof feather.replace === 'function') {
     feather.replace();
   }
+  // =========================
+  //  Education Circular Carousel
+  // =========================
+  const orbitContainer = document.getElementById('orbitContainer');
+  if (orbitContainer) {
+    const slides = Array.from(orbitContainer.querySelectorAll('.slide'));
+    const radius = 120; // distance from center
+    const centerX = orbitContainer.offsetWidth / 2;
+    const centerY = orbitContainer.offsetHeight / 2;
+    const total = slides.length;
+
+    // Place slides in circle initially
+    slides.forEach((slide, i) => {
+      const angle = (i / total) * 2 * Math.PI;
+      slide.dataset.angle = angle;
+      const x = centerX + radius * Math.cos(angle) - slide.offsetWidth / 2;
+      const y = centerY + radius * Math.sin(angle) - slide.offsetHeight / 2;
+      slide.style.transform = `translate(${x}px, ${y}px)`;
+    });
+
+    // Rotate orbit continuously
+    function rotateOrbit() {
+      slides.forEach((slide) => {
+        let angle = parseFloat(slide.dataset.angle);
+        angle += 0.01; // rotation speed
+        slide.dataset.angle = angle;
+        const x = centerX + radius * Math.cos(angle) - slide.offsetWidth / 2;
+        const y = centerY + radius * Math.sin(angle) - slide.offsetHeight / 2;
+        slide.style.transform = `translate(${x}px, ${y}px)`;
+      });
+      requestAnimationFrame(rotateOrbit);
+    }
+
+    rotateOrbit();
+  }
+
 
   // Mobile menu functionality
   const menuBtn = document.getElementById('menuBtn');
@@ -269,5 +305,8 @@ document.addEventListener('DOMContentLoaded', async function () {
     });
   }
 });
+
+
+
 
 
