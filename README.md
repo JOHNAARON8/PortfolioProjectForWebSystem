@@ -18,10 +18,5 @@ This is the personal portfolio website of John Aron Cadag. It showcases my skill
 - HTML5
 - CSS3 / TailwindCSS
 - JavaScript
-- React (for interactive components)
+- PHP
 - Git & GitHub (for version control and deployment)
-
-## Installation
-1. Clone the repository:
-```bash
-git clone https://github.com/your-username/portfolio.git
