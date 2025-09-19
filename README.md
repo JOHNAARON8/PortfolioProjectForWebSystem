@@ -1,15 +1,19 @@
-# John Aron Cadag Portfolio
+Portfolio Project – Elective 1 (Web System)
 
-## Description
-This is the personal portfolio website of John Aron Cadag. It showcases my skills, projects, and experiences as a developer. The website is designed to be modern, responsive, and user-friendly, with support for light and dark modes.
+This project is a Portfolio Website created as a mid-project requirement for Elective 1: Web System. It showcases personal details, skills, projects, and achievements in a clean and professional layout.
 
 ## Features
-- Responsive design for desktop, tablet, and mobile devices
-- Dark and light mode toggle
+- Responsive design for both desktop and mobile
+- Sections for About Me, Education, Skills, and Projects
+- Smooth navigation with interactive UI
+- Built with modern styling using TailwindCSS=
+- Dynamic elements supported by PHP for backend logic
 - Sections include:
   - Home
   - About Me
   - Skills
+  - Experience
+  - Education
   - Projects
   - Contact
 - Smooth scrolling and interactive UI elements
@@ -20,3 +24,13 @@ This is the personal portfolio website of John Aron Cadag. It showcases my skill
 - JavaScript
 - PHP
 - Git & GitHub (for version control and deployment)
+
+## Future improvement
+- Integration of the backend and database
+- Integration of Chatbot
+
+
+## How to run 
+- First is run the MyPortfolio.html, it serve as the Main file.
+- You can also clone this using GitHub:: https://github.com/JOHNAARON8/PortfolioProjectForWebSystem.git
+
