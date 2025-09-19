@@ -14,7 +14,7 @@
           </div>
           <div>
             <div class="font-medium">Email</div>
-            <div class="text-gray-600 dark:text-gray-400">john.aron.cadag@email.com</div>
+            <div class="text-gray-600 dark:text-gray-400">cadagjohnaron@email.com</div>
           </div>
         </div>
         <div class="flex items-center space-x-4">
@@ -23,7 +23,7 @@
           </div>
           <div>
             <div class="font-medium">Phone</div>
-            <div class="text-gray-600 dark:text-gray-400">+63 xxx xxx xxxx</div>
+            <div class="text-gray-600 dark:text-gray-400">+63 935 371 3644</div>
           </div>
         </div>
         <div class="flex items-center space-x-4">
@@ -32,35 +32,37 @@
           </div>
           <div>
             <div class="font-medium">Location</div>
-            <div class="text-gray-600 dark:text-gray-400">Masbate, Philippines</div>
+            <div class="text-gray-600 dark:text-gray-400">Camarines Ssur, Iriga City, Philippines</div>
           </div>
         </div>
       </div>
       <div class="flex gap-4 mt-8">
-        <a href="#" class="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-lg hover:bg-blue-200 dark:hover:bg-blue-900/50 transition-colors">
+        <a href="https://github.com/JOHNAARON8" class="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-lg hover:bg-blue-200 dark:hover:bg-blue-900/50 transition-colors">
           <i data-feather="github" class="text-blue-600"></i>
         </a>
-        <a href="#" class="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-lg hover:bg-blue-200 dark:hover:bg-blue-900/50 transition-colors">
+        <a href="https://www.linkedin.com/in/john-aron-cadag-717bb4320/" class="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-lg hover:bg-blue-200 dark:hover:bg-blue-900/50 transition-colors">
           <i data-feather="linkedin" class="text-blue-600"></i>
         </a>
-        <a href="#" class="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-lg hover:bg-blue-200 dark:hover:bg-blue-900/50 transition-colors">
-          <i data-feather="twitter" class="text-blue-600"></i>
+        <a href="https://www.facebook.com/john.a.cadag" class="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-lg hover:bg-blue-200 dark:hover:bg-blue-900/50 transition-colors">
+          <i data-feather="facebook" class="text-blue-600"></i>
         </a>
       </div>
     </div>
-    <form class="space-y-6 bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg">
+
+    <form action="../Api/sendMessage.php" method="POST" class="space-y-6 bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg">
       <div class="grid md:grid-cols-2 gap-4">
-        <input type="text" placeholder="First Name" class="w-full p-4 border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all">
-        <input type="text" placeholder="Last Name" class="w-full p-4 border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all">
+        <input type="text" name="firstName" placeholder="First Name" required class="w-full p-4 border rounded-lg">
+        <input type="text" name="lastName" placeholder="Last Name" required class="w-full p-4 border rounded-lg">
       </div>
-      <input type="email" placeholder="Email Address" class="w-full p-4 border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all">
-      <input type="text" placeholder="Subject" class="w-full p-4 border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all">
-      <textarea rows="5" placeholder="Your Message" class="w-full p-4 border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all resize-none"></textarea>
-      <button type="submit" class="w-full px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg hover:shadow-lg hover:scale-[1.02] transition-all duration-300 font-medium">
+      <input type="email" name="email" placeholder="Email Address" required class="w-full p-4 border rounded-lg">
+      <input type="text" name="subject" placeholder="Subject" required class="w-full p-4 border rounded-lg">
+      <textarea name="message" rows="5" placeholder="Your Message" required class="w-full p-4 border rounded-lg"></textarea>
+      <button type="submit" class="w-full px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg">
         Send Message
-        <i data-feather="send" class="inline ml-2 w-4 h-4"></i>
       </button>
     </form>
+    
+    
   </div>
-</section>
+</section>  
 
