@@ -29,39 +29,63 @@ document.addEventListener('DOMContentLoaded', async function () {
   // =========================
   //  Education Circular Carousel
   // =========================
-  const orbitContainer = document.getElementById('orbitContainer');
-  if (orbitContainer) {
-    const slides = Array.from(orbitContainer.querySelectorAll('.slide'));
-    const radius = 120; // distance from center
-    const centerX = orbitContainer.offsetWidth / 2;
-    const centerY = orbitContainer.offsetHeight / 2;
-    const total = slides.length;
-
-    // Place slides in circle initially
-    slides.forEach((slide, i) => {
-      const angle = (i / total) * 2 * Math.PI;
-      slide.dataset.angle = angle;
-      const x = centerX + radius * Math.cos(angle) - slide.offsetWidth / 2;
-      const y = centerY + radius * Math.sin(angle) - slide.offsetHeight / 2;
-      slide.style.transform = `translate(${x}px, ${y}px)`;
+  const slider = document.getElementById('educationSlider');
+  const slides = slider.children;
+  const dots = document.querySelectorAll('#sliderDots .dot');
+  let currentIndex = 0;
+  
+  // Show slide by index
+  function showSlide(index) {
+    slider.style.transform = `translateX(-${index * 100}%)`;
+    dots.forEach((dot, i) => {
+      dot.classList.toggle('bg-indigo-500', i === index);
+      dot.classList.toggle('bg-gray-400', i !== index);
     });
-
-    // Rotate orbit continuously
-    function rotateOrbit() {
-      slides.forEach((slide) => {
-        let angle = parseFloat(slide.dataset.angle);
-        angle += 0.01; // rotation speed
-        slide.dataset.angle = angle;
-        const x = centerX + radius * Math.cos(angle) - slide.offsetWidth / 2;
-        const y = centerY + radius * Math.sin(angle) - slide.offsetHeight / 2;
-        slide.style.transform = `translate(${x}px, ${y}px)`;
-      });
-      requestAnimationFrame(rotateOrbit);
-    }
-
-    rotateOrbit();
   }
-
+  
+  // Next and Previous
+  function nextSlide() {
+    currentIndex = (currentIndex + 1) % slides.length;
+    showSlide(currentIndex);
+  }
+  
+  function prevSlide() {
+    currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+    showSlide(currentIndex);
+  }
+  
+  // Auto-slide every 4 seconds
+  let slideInterval = setInterval(nextSlide, 4000);
+  
+  // Buttons
+  document.getElementById('nextSlide').addEventListener('click', () => {
+    nextSlide();
+    resetInterval();
+  });
+  
+  document.getElementById('prevSlide').addEventListener('click', () => {
+    prevSlide();
+    resetInterval();
+  });
+  
+  // Dots click
+  dots.forEach((dot, i) => {
+    dot.addEventListener('click', () => {
+      currentIndex = i;
+      showSlide(currentIndex);
+      resetInterval();
+    });
+  });
+  
+  // Reset auto-slide interval on manual interaction
+  function resetInterval() {
+    clearInterval(slideInterval);
+    slideInterval = setInterval(nextSlide, 4000);
+  }
+  
+  // Initialize first slide
+  showSlide(currentIndex);
+  
 
   // Mobile menu functionality
   const menuBtn = document.getElementById('menuBtn');

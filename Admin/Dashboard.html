@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Admin Panel</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@3.9.4/dist/full.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3a0ca3;
+            --accent-color: #f72585;
+            --light-bg: #f8f9fa;
+            --dark-bg: #2b2d42;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            overflow-x: hidden;
+            height: 100vh;
+        }
+        
+        .app-container {
+            max-width: 480px;
+            margin: 0 auto;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        
+        .app-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .app-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1rem;
+            padding-bottom: 70px;
+        }
+        
+        .app-nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            max-width: 480px;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 0.7rem 0;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+        }
+        
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: #666;
+            font-size: 0.8rem;
+            transition: all 0.3s;
+        }
+        
+        .nav-item.active {
+            color: var(--primary-color);
+        }
+        
+        .nav-icon {
+            font-size: 1.3rem;
+            margin-bottom: 0.3rem;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.2rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .stat-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .stat-icon {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+        
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 0.2rem;
+        }
+        
+        .stat-label {
+            font-size: 0.8rem;
+            color: #666;
+        }
+        
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--dark-bg);
+            display: flex;
+            align-items: center;
+        }
+        
+        .section-title i {
+            margin-right: 0.5rem;
+            color: var(--primary-color);
+        }
+        
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        
+        .form-textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .btn {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+        
+        .btn-delete {
+            background: #ff4757;
+            color: white;
+        }
+        
+        .btn-edit {
+            background: #ffa502;
+            color: white;
+        }
+        
+        .content-section {
+            display: none;
+        }
+        
+        .content-section.active {
+            display: block;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .list-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .list-item:last-child {
+            border-bottom: none;
+        }
+        
+        .list-content {
+            flex: 1;
+        }
+        
+        .list-title {
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+        
+        .list-subtitle {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .list-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .action-btn {
+            padding: 0.5rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        
+        .tag {
+            display: inline-block;
+            padding: 0.3rem 0.7rem;
+            background: #e0e7ff;
+            color: var(--primary-color);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        @media (min-width: 768px) {
+            .app-container {
+                max-width: 100%;
+                height: 100vh;
+                flex-direction: row;
+            }
+            
+            .app-nav {
+                position: relative;
+                width: 80px;
+                flex-direction: column;
+                justify-content: flex-start;
+                padding-top: 2rem;
+                box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+                height: 100%;
+            }
+            
+            .nav-item {
+                margin-bottom: 2rem;
+                font-size: 0.7rem;
+            }
+            
+            .nav-icon {
+                font-size: 1.5rem;
+            }
+            
+            .app-content {
+                flex: 1;
+                padding: 2rem;
+                padding-bottom: 1rem;
+            }
+            
+            .app-header {
+                position: fixed;
+                width: calc(100% - 80px);
+                left: 80px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        
+        <!-- App Content -->
+        <main class="app-content">
+            <!-- Dashboard Section -->
+            <section id="dashboard" class="content-section active">
+                <h2 class="section-title"><i class="fas fa-gauge-high"></i> Dashboard</h2>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-laptop-code"></i>
+                        </div>
+                        <div class="stat-value">12</div>
+                        <div class="stat-label">Projects</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                        <div class="stat-value">4.2K</div>
+                        <div class="stat-label">Views</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-briefcase"></i>
+                        </div>
+                        <div class="stat-value">5</div>
+                        <div class="stat-label">Experiences</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <div class="stat-value">3</div>
+                        <div class="stat-label">Education</div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="font-bold mb-3">Recent Activity</h3>
+                    
+                    <div class="list-item">
+                        <div class="list-content">
+                            <div class="list-title">Updated About Section</div>
+                            <div class="list-subtitle">2 hours ago</div>
+                        </div>
+                    </div>
+                    
+                    <div class="list-item">
+                        <div class="list-content">
+                            <div class="list-title">Added New Project</div>
+                            <div class="list-subtitle">Yesterday</div>
+                        </div>
+                    </div>
+                    
+                    <div class="list-item">
+                        <div class="list-content">
+                            <div class="list-title">Updated Experience</div>
+                            <div class="list-subtitle">2 days ago</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Intro Section -->
+            <section id="intro" class="content-section">
+                <h2 class="section-title"><i class="fas fa-user"></i> Introduction</h2>
+                
+                <div class="card">
+                    <form>
+                        <div class="form-group">
+                            <label class="form-label">Full Name</label>
+                            <input type="text" class="form-input" value="John Doe">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Professional Title</label>
+                            <input type="text" class="form-input" value="Full Stack Developer">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Brief Introduction</label>
+                            <textarea class="form-textarea">Passionate full stack developer with 5+ years of experience building web applications.</textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Profile Image</label>
+                            <input type="file" class="form-input">
+                        </div>
+                        
+                        <button class="btn btn-primary">Save Changes</button>
+                    </form>
+                </div>
+            </section>
+            
+            <!-- About Section -->
+            <section id="about" class="content-section">
+                <h2 class="section-title"><i class="fas fa-address-card"></i> About Me</h2>
+                
+                <div class="card">
+                    <form>
+                        <div class="form-group">
+                            <label class="form-label">Detailed About Text</label>
+                            <textarea class="form-textarea">I am a passionate developer with expertise in JavaScript, React, Node.js, and various other technologies. I enjoy creating user-friendly applications that solve real-world problems. With a background in computer science and several years of industry experience, I bring both technical knowledge and practical skills to every project.
+
+When I'm not coding, I enjoy hiking, photography, and exploring new technologies. I believe in continuous learning and always strive to improve my skills.</textarea>
+                        </div>
+                        
+                        <button class="btn btn-primary">Save Changes</button>
+                    </form>
+                </div>
+            </section>
+            
+            <!-- Experience Section -->
+            <section id="experience" class="content-section">
+                <h2 class="section-title"><i class="fas fa-briefcase"></i> Experience</h2>
+                
+                <div class="card">
+                    <h3 class="font-bold mb-3">Your Experiences</h3>
+                    
+                    <div class="list-item">
+                        <div class="list-content">
+                            <div class="list-title">Senior Developer</div>
+                            <div class="list-subtitle">Tech Solutions Inc. • 2021 - Present</div>
+                        </div>
+                        <div class="list-actions">
+                            <button class="action-btn btn-edit"><i class="fas fa-edit"></i></button>
+                            <button class="action-btn btn-delete"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+                    
+                    <div class="list-item">
+                        <div class="list-content">
+                            <div class="list-title">Frontend Developer</div>
+                            <div class="list-subtitle">Web Innovations • 2019 - 2021</div>
+                        </div>
+                        <div class="list-actions">
+                            <button class="action-btn btn-edit"><i class="fas fa-edit"></i></button>
+                            <button class="action-btn btn-delete"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+                    
+                    <div class="list-item">
+                        <div class="list-content">
+                            <div class="list-title">Junior Developer</div>
+                            <div class="list-subtitle">Digital Creations • 2018 - 2019</div>
+                        </div>
+                        <div class="list-actions">
+                            <button class="action-btn btn-edit"><i class="fas fa-edit"></i></button>
+                            <button class="action-btn btn-delete"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-primary mt-3"><i class="fas fa-plus mr-2"></i> Add New Experience</button>
+                </div>
+            </section>
+            
+            <!-- Projects Section -->
+            <section id="projects" class="content-section">
+                <h2 class="section-title"><i class="fas fa-laptop-code"></i> Projects</h2>
+                
+                <div class="card">
+                    <h3 class="font-bold mb-3">Your Projects</h3>
+                    
+                    <div class="list-item">
+                        <div class="list-content">
+                            <div class="list-title">E-commerce Platform</div>
+                            <div class="list-subtitle">React, Node, MongoDB</div>
+                            <div>
+                                <span class="tag">Completed</span>
+                            </div>
+                        </div>
+                        <div class="list-actions">
+                            <button class="action-btn btn-edit"><i class="fas fa-edit"></i></button>
+                            <button class="action-btn btn-delete"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+                    
+                    <div class="list-item">
+                        <div class="list-content">
+                            <div class="list-title">Task Management App</div>
+                            <div class="list-subtitle">Vue, Express, MySQL</div>
+                            <div>
+                                <span class="tag">Completed</span>
+                            </div>
+                        </div>
+                        <div class="list-actions">
+                            <button class="action-btn btn-edit"><i class="fas fa-edit"></i></button>
+                            <button class="action-btn btn-delete"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+                    
+                    <div class="list-item">
+                        <div class="list-content">
+                            <div class="list-title">Weather Dashboard</div>
+                            <div class="list-subtitle">React, OpenWeather API</div>
+                            <div>
+                                <span class="tag">In Progress</span>
+                            </div>
+                        </div>
+                        <div class="list-actions">
+                            <button class="action-btn btn-edit"><i class="fas fa-edit"></i></button>
+                            <button class="action-btn btn-delete"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-primary mt-3"><i class="fas fa-plus mr-2"></i> Add New Project</button>
+                </div>
+            </section>
+        </main>
+        
+        <!-- App Navigation -->
+        <nav class="app-nav">
+            <a href="#" class="nav-item active" data-target="dashboard">
+                <i class="fas fa-gauge-high nav-icon"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="#" class="nav-item" data-target="intro">
+                <i class="fas fa-user nav-icon"></i>
+                <span>Intro</span>
+            </a>
+            <a href="#" class="nav-item" data-target="about">
+                <i class="fas fa-address-card nav-icon"></i>
+                <span>About</span>
+            </a>
+            <a href="#" class="nav-item" data-target="experience">
+                <i class="fas fa-briefcase nav-icon"></i>
+                <span>Experience</span>
+            </a>
+            <a href="#" class="nav-item" data-target="projects">
+                <i class="fas fa-laptop-code nav-icon"></i>
+                <span>Projects</span>
+            </a>
+        </nav>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Navigation handling
+            const navItems = document.querySelectorAll('.nav-item');
+            const contentSections = document.querySelectorAll('.content-section');
+            
+            navItems.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('data-target');
+                    
+                    // Update active nav item
+                    navItems.forEach(navItem => {
+                        navItem.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                    
+                    // Show the target section
+                    contentSections.forEach(section => {
+                        section.classList.remove('active');
+                    });
+                    document.getElementById(targetId).classList.add('active');
+                });
+            });
+            
+            // Simulate loading
+            setTimeout(() => {
+                document.querySelector('.app-container').style.opacity = '1';
+            }, 300);
+        });
+    </script>
+</body>
+</html>
