@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio Admin Panel</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: rgb(70, 130, 180);
+      --secondary-color: rgb(120, 50, 200);
+      --accent-color: rgb(240, 50, 130);
+      --bg-dark: rgb(15, 23, 42);
+      --card-dark: rgb(30, 40, 60);
+      --text-light: rgb(220, 220, 220);
+    }
+  </style>
+</head>
+<body class="bg-[var(--bg-dark)] text-[var(--text-light)] font-sans">
+
+<div class="flex h-screen">
+
+  <!-- Main Content -->
+  <main id="main-content" class="flex-1 overflow-y-auto p-4 md:p-8 md:mr-20">
+    <!-- Sections will be loaded here dynamically -->
+  </main>
+
+  <!-- Desktop Sidebar (Right Side) -->
+  <nav class="hidden md:flex flex-col bg-[var(--card-dark)] w-20 fixed right-0 top-0 h-full shadow-lg pt-8 items-center space-y-6">
+    <a href="#" class="nav-item flex flex-col items-center text-gray-400 hover:text-[var(--primary-color)]" data-target="dashboard">
+      <i class="fas fa-gauge-high text-xl mb-1"></i>
+      <span class="text-xs hidden md:block">Dashboard</span>
+    </a>
+    <a href="#" class="nav-item flex flex-col items-center text-gray-400 hover:text-[var(--primary-color)]" data-target="intro">
+      <i class="fas fa-user text-xl mb-1"></i>
+      <span class="text-xs hidden md:block">Intro</span>
+    </a>
+    <a href="#" class="nav-item flex flex-col items-center text-gray-400 hover:text-[var(--primary-color)]" data-target="about">
+      <i class="fas fa-address-card text-xl mb-1"></i>
+      <span class="text-xs hidden md:block">About</span>
+    </a>
+    <a href="#" class="nav-item flex flex-col items-center text-gray-400 hover:text-[var(--primary-color)]" data-target="experience">
+      <i class="fas fa-briefcase text-xl mb-1"></i>
+      <span class="text-xs hidden md:block">Experience</span>
+    </a>
+    <a href="#" class="nav-item flex flex-col items-center text-gray-400 hover:text-[var(--primary-color)]" data-target="projects">
+      <i class="fas fa-laptop-code text-xl mb-1"></i>
+      <span class="text-xs hidden md:block">Projects</span>
+    </a>
+  </nav>
+
+  <!-- Mobile Bottom Navigation -->
+  <nav class="fixed bottom-0 left-0 right-0 bg-[var(--card-dark)] md:hidden flex justify-around items-center p-2 shadow-lg">
+    <a href="#" class="nav-item flex flex-col items-center text-gray-400 hover:text-[var(--primary-color)]" data-target="dashboard">
+      <i class="fas fa-gauge-high text-xl"></i>
+      <span class="text-xs">Dashboard</span>
+    </a>
+    <a href="#" class="nav-item flex flex-col items-center text-gray-400 hover:text-[var(--primary-color)]" data-target="intro">
+      <i class="fas fa-user text-xl"></i>
+      <span class="text-xs">Intro</span>
+    </a>
+    <a href="#" class="nav-item flex flex-col items-center text-gray-400 hover:text-[var(--primary-color)]" data-target="about">
+      <i class="fas fa-address-card text-xl"></i>
+      <span class="text-xs">About</span>
+    </a>
+    <a href="#" class="nav-item flex flex-col items-center text-gray-400 hover:text-[var(--primary-color)]" data-target="experience">
+      <i class="fas fa-briefcase text-xl"></i>
+      <span class="text-xs">Experience</span>
+    </a>
+    <a href="#" class="nav-item flex flex-col items-center text-gray-400 hover:text-[var(--primary-color)]" data-target="projects">
+      <i class="fas fa-laptop-code text-xl"></i>
+      <span class="text-xs">Projects</span>
+    </a>
+  </nav>
+
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const navItems = document.querySelectorAll('.nav-item');
+  const mainContent = document.getElementById('main-content');
+
+  async function loadSection(section) {
+    const res = await fetch(`component/${section}.html`);
+    mainContent.innerHTML = await res.text();
+  }
+
+  // Load default section
+  loadSection('dashboard');
+
+  navItems.forEach(item => {
+    item.addEventListener('click', e => {
+      e.preventDefault();
+      const target = item.getAttribute('data-target');
+
+      navItems.forEach(nav => nav.classList.remove('text-[var(--primary-color)]', 'active'));
+      item.classList.add('text-[var(--primary-color)]', 'active');
+
+      loadSection(target);
+    });
+  });
+});
+</script>
+
+</body>
+</html>
