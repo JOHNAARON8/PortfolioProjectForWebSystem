@@ -123,31 +123,51 @@ document.addEventListener('DOMContentLoaded', async function () {
     });
   }
 
-  // Dark mode toggle functionality
-  function toggleDarkMode(btn) {
-    document.documentElement.classList.toggle('dark');
-    if (!window.feather) return;
+ // ===========================
+// Dark mode toggle with localStorage
+// ===========================
+function applyDarkMode(isDark) {
+  if (isDark) {
+    document.documentElement.classList.add('dark');
+  } else {
+    document.documentElement.classList.remove('dark');
+  }
+
+  // Update icons
+  [darkToggle, darkToggleMobile].forEach(btn => {
+    if (!btn || !window.feather) return;
     const icon = btn.querySelector('svg');
-    if (document.documentElement.classList.contains('dark')) {
-      icon.outerHTML = feather.icons['sun'].toSvg();
-    } else {
-      icon.outerHTML = feather.icons['moon'].toSvg();
-    }
-  }
+    if (!icon) return;
+    icon.outerHTML = isDark ? feather.icons['sun'].toSvg() : feather.icons['moon'].toSvg();
+  });
+}
 
-  const darkToggle = document.getElementById('darkToggle');
-  if (darkToggle) {
-    darkToggle.addEventListener('click', function () {
-      toggleDarkMode(this);
-    });
-  }
+function toggleDarkMode(btn) {
+  const isDark = !document.documentElement.classList.contains('dark');
+  applyDarkMode(isDark);
+  localStorage.setItem('darkMode', isDark ? 'true' : 'false');
+}
 
-  const darkToggleMobile = document.getElementById('darkToggleMobile');
-  if (darkToggleMobile) {
-    darkToggleMobile.addEventListener('click', function () {
-      toggleDarkMode(this);
-    });
-  }
+// Get elements
+const darkToggle = document.getElementById('darkToggle');
+const darkToggleMobile = document.getElementById('darkToggleMobile');
+
+// Load saved mode on page load
+const savedMode = localStorage.getItem('darkMode');
+applyDarkMode(savedMode === 'true');
+
+// Attach event listeners
+if (darkToggle) {
+  darkToggle.addEventListener('click', function () {
+    toggleDarkMode(this);
+  });
+}
+if (darkToggleMobile) {
+  darkToggleMobile.addEventListener('click', function () {
+    toggleDarkMode(this);
+  });
+}
+
 
   // GSAP animations
   if (window.gsap) {
@@ -270,40 +290,6 @@ document.addEventListener('DOMContentLoaded', async function () {
     });
   });
 
-  // Form submission
-  const form = document.querySelector('form');
-  if (form) {
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-
-      const button = this.querySelector('button[type="submit"]');
-      if (!button) return;
-      const originalText = button.innerHTML;
-
-      // Show loading state
-      button.innerHTML = 'Sending... <i data-feather="loader" class="inline ml-2 w-4 h-4 animate-spin"></i>';
-      button.disabled = true;
-
-      // Simulate form submission (replace with actual submission logic)
-      setTimeout(() => {
-        button.innerHTML = 'Message Sent! <i data-feather\n          ="check" class="inline ml-2 w-4 h-4"></i>';
-        button.className = button.className.replace('from-indigo-600 to-purple-600', 'from-green-600 to-green-700');
-
-        // Reset form
-        form.reset();
-
-        // Reset button after 3 seconds
-        setTimeout(() => {
-          button.innerHTML = originalText;
-          button.className = button.className.replace('from-green-600 to-green-700', 'from-indigo-600 to-purple-600');
-          button.disabled = false;
-          if (window.feather) feather.replace();
-        }, 3000);
-
-        if (window.feather) feather.replace();
-      }, 2000);
-    });
-  }
 });
 
 

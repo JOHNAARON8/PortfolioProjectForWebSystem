@@ -14,13 +14,12 @@ $email     = isset($_POST['email']) ? trim($_POST['email']) : '';
 $subject   = isset($_POST['subject']) ? trim($_POST['subject']) : 'No Subject';
 $message   = isset($_POST['message']) ? trim($_POST['message']) : '';
 
+// Redirect URL
+$redirectURL = '../MyPortfolio.html';
+
 // Validate required fields
 if (empty($firstName) || empty($lastName) || empty($email) || empty($message)) {
-    header('Content-Type: application/json');
-    echo json_encode([
-        'success' => false,
-        'message' => 'Please fill in all required fields.'
-    ]);
+    header('Location: ' . $redirectURL . '?status=error&msg=Please+fill+in+all+required+fields');
     exit;
 }
 
@@ -33,15 +32,15 @@ try {
     $mail->isSMTP();
     $mail->Host       = 'smtp.gmail.com';
     $mail->SMTPAuth   = true;
-    $mail->Username   = 'johnaroncadag007@gmail.com'; // Your Gmail
+    $mail->Username   = 'johnaroncadag007@gmail.com';
     $mail->Password   = 'fwaz hzmb jcao uvoe';
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
     $mail->Port       = 465;
 
     // Recipients
-    $mail->setFrom('johnaroncadag007@gmail.com', 'Portfolio Contact'); // fixed sender
-    $mail->addAddress($admin_email, 'Portfolio Owner');             // admin inbox
-    $mail->addReplyTo($email, $fullName);                           // so replies go to sender
+    $mail->setFrom('johnaroncadag007@gmail.com', 'Portfolio Contact');
+    $mail->addAddress($admin_email, 'Portfolio Owner');
+    $mail->addReplyTo($email, $fullName);
 
     // Email content
     $mail->isHTML(true);
@@ -72,18 +71,12 @@ try {
 
     $mail->send();
 
-    // Success response (AJAX-ready)
-    header('Content-Type: application/json');
-    echo json_encode([
-        'success' => true,
-        'message' => '✅ Message sent successfully!'
-    ]);
+    // Redirect with success message
+    header('Location: ' . $redirectURL . '?status=success&msg=Message+sent+successfully');
+    exit;
 
 } catch (Exception $e) {
-    // Error response
-    header('Content-Type: application/json');
-    echo json_encode([
-        'success' => false,
-        'message' => '❌ Message could not be sent. Error: ' . $mail->ErrorInfo
-    ]);
+    // Redirect with error message
+    header('Location: ' . $redirectURL . '?status=error&msg=Message+could+not+be+sent');
+    exit;
 }
