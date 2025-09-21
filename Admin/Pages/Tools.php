@@ -1,0 +1,114 @@
+<?php
+include "../Backends/Tools/FetchTools.php";
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tools & Skills</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-900 text-gray-100 font-sans">
+
+<div class="flex flex-col md:flex-row h-screen">
+
+  <main class="flex-1 overflow-y-auto p-4 md:p-10 md:mr-20 space-y-8">
+    <h2 class="text-2xl font-bold text-blue-400 flex items-center">
+      <i class="fas fa-tools mr-2"></i> Tools & Skills
+    </h2>
+
+    <!-- Add New Tool Form -->
+    <div class="bg-gray-800 p-4 md:p-6 rounded-xl shadow-md space-y-4">
+      <h3 class="text-lg font-semibold">Add New Tool</h3>
+      <form method="POST" enctype="multipart/form-data" action="../Backends/Tools/SubmitTools.php" class="space-y-3">
+        <input type="text" name="name" placeholder="Tool Name (e.g. JavaScript)" 
+               class="w-full p-2 rounded bg-gray-700 border border-gray-600" required>
+
+        <select name="category" class="w-full p-2 rounded bg-gray-700 border border-gray-600" required>
+            <option value="">Select Category</option>
+            <option value="Frontend">Frontend</option>
+            <option value="Backend">Backend</option>
+            <option value="Databases">Databases</option>
+            <option value="Tools & Others">Tools & Others</option>
+        </select>
+
+        <input type="number" name="proficiency" placeholder="Proficiency % (0-100)" min="0" max="100" 
+               class="w-full p-2 rounded bg-gray-700 border border-gray-600" required>
+
+        <input type="file" name="icon" accept="image/*" class="w-full p-2 rounded bg-gray-700 border border-gray-600">
+
+        <button type="submit" class="w-full md:w-auto bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded text-white font-semibold">
+          <i class="fas fa-plus mr-2"></i> Add Tool
+        </button>
+      </form>
+    </div>
+
+    <!-- Existing Tools Table -->
+    <div class="bg-gray-800 p-4 md:p-6 rounded-xl shadow-md overflow-x-auto">
+      <h3 class="text-lg font-semibold mb-4">Existing Tools</h3>
+      <table class="min-w-full text-left border-collapse">
+        <thead>
+          <tr class="border-b border-gray-600">
+            <th class="p-2">Icon</th>
+            <th class="p-2">Name</th>
+            <th class="p-2">Category</th>
+            <th class="p-2">Proficiency</th>
+            <th class="p-2">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php foreach ($tools as $tool): ?>
+          <tr class="border-b border-gray-700 hover:bg-gray-700">
+            <td class="p-2">
+              <?php if (!empty($tool['icon_path'])): ?>
+              <img src="<?= htmlspecialchars($tool['icon_path']) ?>" class="w-8 h-8" alt="<?= htmlspecialchars($tool['name']) ?>">
+              <?php else: ?>
+              <i class="fas fa-cogs text-blue-400"></i>
+              <?php endif; ?>
+            </td>
+            <td class="p-2"><?= htmlspecialchars($tool['name']) ?></td>
+            <td class="p-2"><?= htmlspecialchars($tool['category']) ?></td>
+            <td class="p-2">
+              <div class="w-full bg-gray-700 h-2 rounded-full overflow-hidden">
+                <div class="h-2 bg-blue-400" style="width: <?= $tool['proficiency_percentage'] ?>%;"></div>
+              </div>
+              <span class="text-xs text-gray-400"><?= $tool['proficiency_percentage'] ?>%</span>
+            </td>
+            <td class="p-2 flex flex-col md:flex-row gap-2">
+                <!-- Edit Button -->
+                <button class="bg-yellow-500 hover:bg-yellow-600 w-28 h-10 rounded text-white text-sm flex items-center justify-center editToolBtn"
+                        data-id="<?= $tool['id'] ?>"
+                        data-name="<?= htmlspecialchars($tool['name']) ?>"
+                        data-category="<?= $tool['category'] ?>"
+                        data-proficiency="<?= $tool['proficiency_percentage'] ?>">
+                    <i class="fas fa-edit mr-1"></i> Edit
+                </button>
+
+                <!-- Delete Button -->
+                <form method="POST" action="../Backends/Tools/DeleteTools.php" onsubmit="return confirm('Are you sure you want to delete this tool?');">
+                    <input type="hidden" name="id" value="<?= $tool['id'] ?>">
+                    <button type="submit" class="bg-red-500 hover:bg-red-600 w-28 h-10 rounded text-white text-sm flex items-center justify-center">
+                    <i class="fas fa-trash-alt mr-1"></i> Delete
+                    </button>
+                </form>
+                </td>
+          </tr>
+          <?php endforeach; ?>
+        </tbody>
+      </table>
+    </div>
+
+  </main>
+
+  <!-- Sidebar & Modal -->
+  <?php include "../component/sidebar.html"; ?>
+  <?php include "../component/mobile-nav.html"; ?>
+  <?php include "../component/Modal/EditTools.php"; ?>                        
+
+</div>
+<script src="../Js/HandleEditToolsModal.js"></script>
+</body>
+</html>
