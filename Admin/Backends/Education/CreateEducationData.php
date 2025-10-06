@@ -28,9 +28,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    // Insert into database
     $stmt = $conn->prepare("INSERT INTO education (level, school_name, start_year, end_year, description, image_path) VALUES (?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("ssiiis", $level, $school_name, $start_year, $end_year, $description, $imagePath);
+    $stmt->bind_param("ssiiss", $level, $school_name, $start_year, $end_year, $description, $imagePath);
+    
 
     if ($stmt->execute()) {
         header("Location: ../../Pages/Education.php?message=Education+record+created+successfully");

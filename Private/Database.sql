@@ -1,0 +1,135 @@
+CREATE DATABASE PortfolioDatabase;
+USE PortfolioDatabase;
+
+CREATE TABLE Users(
+id INT PRIMARY KEY AUTO_INCREMENT,
+userName VARCHAR(255) NOT NULL,
+password VARCHAR(255) NOT NULL,
+recoveryName VARCHAR(255)
+);
+
+INSERT INTO Users(username, password, recoveryName)
+Values ('John', 'John', 'bow');
+
+CREATE TABLE introduction (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    full_name VARCHAR(100) NOT NULL,
+    bio TEXT NOT NULL,
+    profile_image VARCHAR(255) DEFAULT NULL,
+    cv_link VARCHAR(255) DEFAULT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE titles (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    introduction_id INT NOT NULL,
+    title VARCHAR(150) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (introduction_id) REFERENCES introduction(id) ON DELETE CASCADE
+);
+
+CREATE TABLE about (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    selfIntroduction TEXT NOT NULL,  
+	years_experience INT DEFAULT 0,     
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE skills (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    about_id INT NOT NULL, 
+    skill VARCHAR(150) NOT NULL,         
+    skillDescription TEXT NOT NULL,      
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (about_id) REFERENCES about(id) ON DELETE CASCADE
+);
+
+
+CREATE TABLE experiences (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    year_label VARCHAR(50) NOT NULL,   
+    category VARCHAR(150) NOT NULL,   
+    title VARCHAR(255) NOT NULL,     
+    organization VARCHAR(255) DEFAULT NULL, 
+    badge VARCHAR(100) DEFAULT NULL,  
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE experience_highlights (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    experience_id INT NOT NULL,
+    highlight TEXT NOT NULL,          
+    FOREIGN KEY (experience_id) REFERENCES experiences(id) ON DELETE CASCADE
+);
+
+CREATE TABLE tools (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,            
+    category ENUM('Frontend','Backend','Databases','Tools & Others') NOT NULL,
+    icon_path VARCHAR(255) DEFAULT NULL,  
+    proficiency_percentage TINYINT NOT NULL DEFAULT 0, 
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE education (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    level VARCHAR(50) NOT NULL,          
+    school_name VARCHAR(255) NOT NULL, 
+    start_year YEAR NOT NULL,         
+    end_year YEAR NOT NULL,             
+    description TEXT NOT NULL,       
+    image_path VARCHAR(255) DEFAULT NULL, 
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE projects (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    short_description VARCHAR(500) NOT NULL,
+    full_description TEXT NOT NULL,
+    cover_image VARCHAR(255) DEFAULT NULL,
+    live_link VARCHAR(255) DEFAULT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE project_tools (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    project_id INT NOT NULL,
+    tool_name VARCHAR(100) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (project_id) REFERENCES projects(id) ON DELETE CASCADE
+);
+
+CREATE TABLE contact_info (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(255) NOT NULL,
+    phone VARCHAR(50) NOT NULL,
+    location VARCHAR(255) NOT NULL,
+    github_link VARCHAR(255) DEFAULT NULL,
+    linkedin_link VARCHAR(255) DEFAULT NULL,
+    facebook_link VARCHAR(255) DEFAULT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE certifications (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,  
+    cert_name VARCHAR(255) NOT NULL, 
+    issuing_organization VARCHAR(255) NOT NULL,  
+    issue_date DATE NOT NULL,
+    expiration_date DATE DEFAULT NULL,  
+    certificate_file VARCHAR(255) DEFAULT NULL,
+    status ENUM('Active','Expired','Revoked') DEFAULT 'Active',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES Users(id) ON DELETE CASCADE
+);
+

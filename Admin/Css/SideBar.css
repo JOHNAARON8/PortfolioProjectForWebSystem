@@ -1,0 +1,21 @@
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none; 
+    scrollbar-width: none;   
+  }
+
+  .nav-item:hover i {
+    transform: scale(1.2);
+    color: #fff !important;
+    text-shadow: 0 0 8px rgba(255,255,255,0.6);
+  }
+
+  .nav-item span {
+    transition: all 0.3s ease;
+  }
+
+  .nav-item:hover span {
+    color: #fff !important;
+  }

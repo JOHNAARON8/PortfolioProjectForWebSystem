@@ -3,19 +3,16 @@ include "../DatabaseConnection.php";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    // Get form data
     $title = $conn->real_escape_string($_POST['title']);
     $short_description = $conn->real_escape_string($_POST['short_description']);
     $full_description = $conn->real_escape_string($_POST['full_description']);
     $live_link = $conn->real_escape_string($_POST['live_link']);
     $tools = isset($_POST['tools']) ? $_POST['tools'] : '';
 
-    // Handle cover image
     $coverImagePath = null;
     if (isset($_FILES['cover_image']) && $_FILES['cover_image']['error'] === 0) {
         $targetDir = "../../../uploads/projects/";
 
-        // Create folder if it doesn't exist
         if (!is_dir($targetDir)) {
             mkdir($targetDir, 0755, true);
         }
@@ -31,14 +28,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    // Insert into projects table
     $stmt = $conn->prepare("INSERT INTO projects (title, short_description, full_description, cover_image, live_link) VALUES (?, ?, ?, ?, ?)");
     $stmt->bind_param("sssss", $title, $short_description, $full_description, $coverImagePath, $live_link);
 
     if ($stmt->execute()) {
-        $projectId = $stmt->insert_id; // get inserted project ID
+        $projectId = $stmt->insert_id;
 
-        // Insert tools into project_tools table
         if (!empty($tools)) {
             $toolArray = array_map('trim', explode(',', $tools)); // split comma-separated
             $toolStmt = $conn->prepare("INSERT INTO project_tools (project_id, tool_name) VALUES (?, ?)");

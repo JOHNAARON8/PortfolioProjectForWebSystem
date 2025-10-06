@@ -9,11 +9,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($result && $row = $result->fetch_assoc()) {
             $imagePath = $row['image_path'];
             if (!empty($imagePath) && file_exists($imagePath)) {
-                unlink($imagePath); // Delete the image file
+                unlink($imagePath);
             }
         }
 
-        // Delete the record from database
         $deleteQuery = "DELETE FROM education WHERE id = $id";
         if ($conn->query($deleteQuery)) {
             header("Location: ../../Pages/Education.php?message=Education+record+deleted+successfully");

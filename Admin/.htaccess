@@ -1,0 +1,10 @@
+RewriteEngine On
+
+# Block all direct access to .php files
+RewriteCond %{THE_REQUEST} \.php [NC]
+RewriteRule ^ - [F]
+
+# Use the login form to open the folder
+<Files "LoginForm.php">
+    Require all granted
+</Files>

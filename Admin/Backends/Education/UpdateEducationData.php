@@ -20,7 +20,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $imagePath = $education['image_path']; 
 
-    // Handle new image upload
     if (isset($_FILES['image']) && $_FILES['image']['error'] === 0) {
         $targetDir = "../../../uploads/education/";
 

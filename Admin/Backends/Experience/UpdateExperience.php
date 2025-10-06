@@ -3,7 +3,6 @@ include "../DatabaseConnection.php";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    // 1️⃣ Get main experience fields
     $id = intval($_POST['id']);
     $year_label = $conn->real_escape_string($_POST['year_label']);
     $category = $conn->real_escape_string($_POST['category']);
@@ -11,11 +10,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $organization = $conn->real_escape_string($_POST['organization']);
     $badge = $conn->real_escape_string($_POST['badge']);
 
-    // 2️⃣ Start transaction (to ensure both tables are updated safely)
+
     $conn->begin_transaction();
 
     try {
-        // Update experiences table
         $updateExpSql = "
             UPDATE experiences
             SET year_label = '$year_label',
@@ -28,8 +26,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ";
         $conn->query($updateExpSql);
 
-        // 3️⃣ Update highlights
-        // For simplicity, delete existing highlights first
         $conn->query("DELETE FROM experience_highlights WHERE experience_id = $id");
 
         if (isset($_POST['highlights']) && is_array($_POST['highlights'])) {
@@ -44,10 +40,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt->close();
         }
 
-        // 4️⃣ Commit transaction
         $conn->commit();
 
-        // Redirect back with success
         header("Location: ../../Pages/Experience.php?message=Experience+updated+successfully");
         exit;
 

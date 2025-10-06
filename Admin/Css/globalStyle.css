@@ -1,0 +1,8 @@
+:root {
+    --primary-color: rgb(70, 130, 180);
+    --secondary-color: rgb(120, 50, 200);
+    --accent-color: rgb(240, 50, 130);
+    --bg-dark: rgb(15, 23, 42);
+    --card-dark: rgb(30, 40, 60);
+    --text-light: rgb(220, 220, 220);
+  }

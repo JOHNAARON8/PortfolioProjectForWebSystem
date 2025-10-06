@@ -1,31 +1,57 @@
-<nav class="hidden md:flex flex-col bg-[var(--card-dark)] w-20 fixed right-0 top-0 h-full shadow-lg pt-8 items-center space-y-6">
-    <a href="../Pages/Dash.php" class="nav-item flex flex-col items-center text-gray-400 hover:text-[var(--primary-color)]" data-target="dashboard">
-      <i class="fas fa-gauge-high text-xl mb-1"></i>
-      <span class="text-xs hidden md:block">Dashboard</span>
+<link rel="stylesheet" href="../Css/SideBar.css">
+
+<nav class="hidden md:flex flex-col w-20 fixed right-0 top-0 h-full pt-8 items-center no-scrollbar overflow-y-auto 
+            bg-gradient-to-b from-pink-500 via-purple-500 to-indigo-600 backdrop-blur-md shadow-2xl z-50">
+
+  <div class="flex flex-col items-center space-y-6 w-full">
+    <a href="../Pages/Dash.php" class="nav-item flex flex-col items-center text-gray-200 hover:text-white transition-all duration-300" data-target="dashboard">
+      <i class="fas fa-gauge-high text-2xl mb-1"></i>
+      <span class="text-[10px] hidden md:block">Dashboard</span>
     </a>
-    <a href="../Pages/Intro.php" class="nav-item flex flex-col items-center text-gray-400 hover:text-[var(--primary-color)]" data-target="intro">
-      <i class="fas fa-user text-xl mb-1"></i>
-      <span class="text-xs hidden md:block">Intro</span>
+    <a href="../Pages/Intro.php" class="nav-item flex flex-col items-center text-gray-200 hover:text-white transition-all duration-300" data-target="intro">
+      <i class="fas fa-user text-2xl mb-1"></i>
+      <span class="text-[10px] hidden md:block">Intro</span>
     </a>
-    <a href="../Pages/About.php" class="nav-item flex flex-col items-center text-gray-400 hover:text-[var(--primary-color)]" data-target="about">
-      <i class="fas fa-address-card text-xl mb-1"></i>
-      <span class="text-xs hidden md:block">About</span>
+    <a href="../Pages/About.php" class="nav-item flex flex-col items-center text-gray-200 hover:text-white transition-all duration-300" data-target="about">
+      <i class="fas fa-address-card text-2xl mb-1"></i>
+      <span class="text-[10px] hidden md:block">About</span>
     </a>
-    <a href="../Pages/Experience.php" class="nav-item flex flex-col items-center text-gray-400 hover:text-[var(--primary-color)]" data-target="experience">
-      <i class="fas fa-briefcase text-xl mb-1"></i>
-      <span class="text-xs hidden md:block">Experience</span>
+    <a href="../Pages/Experience.php" class="nav-item flex flex-col items-center text-gray-200 hover:text-white transition-all duration-300" data-target="experience">
+      <i class="fas fa-briefcase text-2xl mb-1"></i>
+      <span class="text-[10px] hidden md:block">Experience</span>
     </a>
-    <a href="../Pages/Tools.php" class="nav-item flex flex-col items-center text-gray-400 hover:text-[var(--primary-color)]" data-target="skills">
-      <i class="fas fa-toolbox text-xl mb-1"></i>
-      <span class="text-xs hidden md:block">Tools</span>
+    <a href="../Pages/Tools.php" class="nav-item flex flex-col items-center text-gray-200 hover:text-white transition-all duration-300" data-target="skills">
+      <i class="fas fa-toolbox text-2xl mb-1"></i>
+      <span class="text-[10px] hidden md:block">Tools</span>
     </a>
-    <a href="../Pages/Education.php" class="nav-item flex flex-col items-center text-gray-400 hover:text-[var(--primary-color)]" data-target="Education">
-      <i class="fas fa-graduation-cap text-xl mb-1"></i>
-      <span class="text-xs hidden md:block">Education</span>
+    <a href="../Pages/Education.php" class="nav-item flex flex-col items-center text-gray-200 hover:text-white transition-all duration-300" data-target="education">
+      <i class="fas fa-graduation-cap text-2xl mb-1"></i>
+      <span class="text-[10px] hidden md:block">Education</span>
     </a>
-    <a href="../Pages/Project.php" class="nav-item flex flex-col items-center text-gray-400 hover:text-[var(--primary-color)]" data-target="projects">
-      <i class="fas fa-laptop-code text-xl mb-1"></i>
-      <span class="text-xs hidden md:block">Projects</span>
+    <a href="../Pages/Project.php" class="nav-item flex flex-col items-center text-gray-200 hover:text-white transition-all duration-300" data-target="projects">
+      <i class="fas fa-laptop-code text-2xl mb-1"></i>
+      <span class="text-[10px] hidden md:block">Projects</span>
     </a>
-  </nav>
-  
+    <a href="../Pages/Certification.php" class="nav-item flex flex-col items-center text-gray-200 hover:text-white transition-all duration-300" data-target="blog">
+      <i class="fas fa-certificate text-2xl mb-1"></i>
+      <span class="text-[10px] hidden md:block">Certificate</span>
+    </a>
+    <a href="../Pages/Contact.php" class="nav-item flex flex-col items-center text-gray-200 hover:text-white transition-all duration-300" data-target="contact">
+      <i class="fas fa-envelope text-2xl mb-1"></i>
+      <span class="text-[10px] hidden md:block">Contact</span>
+    </a>
+  </div>
+
+  <div class="w-10 border-t border-white/30 my-4"></div>
+
+  <a href="../Pages/Settings.php" class="nav-item flex flex-col items-center text-gray-200 hover:text-white transition-all duration-300 mb-6" data-target="settings">
+    <i class="fas fa-cog text-2xl mb-1"></i>
+    <span class="text-[10px] hidden md:block">Settings</span>
+  </a>
+
+  <a href="../Backends/Auth/logout.php" class="nav-item flex flex-col items-center text-gray-200 hover:text-white transition-all duration-300 mb-6" data-target="logout">
+    <i class="fas fa-sign-out-alt text-2xl mb-1"></i>
+    <span class="text-[10px] hidden md:block">Logout</span>
+  </a>
+
+</nav>

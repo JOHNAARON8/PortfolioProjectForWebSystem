@@ -4,17 +4,14 @@ include "../DatabaseConnection.php";
 $selfIntro = $_POST['selfIntroduction'] ?? '';
 $years = $_POST['years_experience'] ?? 0;
 
-// Check if about record exists
 $check = $conn->query("SELECT id FROM about LIMIT 1");
 
 if ($check->num_rows > 0) {
-    // Update existing
     $about = $check->fetch_assoc();
     $stmt = $conn->prepare("UPDATE about SET selfIntroduction=?, years_experience=? WHERE id=?");
     $stmt->bind_param("sii", $selfIntro, $years, $about['id']);
     $stmt->execute();
 } else {
-    // Insert new
     $stmt = $conn->prepare("INSERT INTO about (selfIntroduction, years_experience) VALUES (?, ?)");
     $stmt->bind_param("si", $selfIntro, $years);
     $stmt->execute();

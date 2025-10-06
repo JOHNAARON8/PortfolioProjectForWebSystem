@@ -9,13 +9,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $badge = $conn->real_escape_string($_POST['badge']);
     $highlights = $_POST['highlights'];
 
-    // Insert into experiences
     $sql = "INSERT INTO experiences (year_label, category, title, organization, badge) 
             VALUES ('$year_label', '$category', '$title', '$organization', '$badge')";
     if ($conn->query($sql)) {
         $experience_id = $conn->insert_id;
 
-        // Insert highlights
         foreach ($highlights as $h) {
             if (!empty(trim($h))) {
                 $h_clean = $conn->real_escape_string($h);

@@ -1,31 +1,83 @@
-<nav class="fixed bottom-0 left-0 right-0 bg-[var(--card-dark)] md:hidden flex justify-around items-center p-2 shadow-lg">
-    <a href="../Pages/Dash.php" class="nav-item flex flex-col items-center text-gray-400 hover:text-[var(--primary-color)]" data-target="dashboard">
-      <i class="fas fa-gauge-high text-xl"></i>
-      <span class="text-xs">Dashboard</span>
-    </a>
-    <a href="../Pages/Intro.php" class="nav-item flex flex-col items-center text-gray-400 hover:text-[var(--primary-color)]" data-target="intro">
-      <i class="fas fa-user text-xl"></i>
-      <span class="text-xs">Intro</span>
-    </a>
-    <a href="../Pages/About.php" class="nav-item flex flex-col items-center text-gray-400 hover:text-[var(--primary-color)]" data-target="about">
-      <i class="fas fa-address-card text-xl"></i>
-      <span class="text-xs">About</span>
-    </a>
-    <a href="../Pages/Experience.php" class="nav-item flex flex-col items-center text-gray-400 hover:text-[var(--primary-color)]" data-target="experience">
-      <i class="fas fa-briefcase text-xl"></i>
-      <span class="text-xs">Experience</span>
-    </a>
-    <a href="../Pages/Tools.php" class="nav-item flex flex-col items-center text-gray-400 hover:text-[var(--primary-color)]" data-target="skills">
-      <i class="fas fa-toolbox text-xl"></i>
-      <span class="text-xs">Tools</span>
-    </a>
-    <a href="../Pages/Education.php" class="nav-item flex flex-col items-center text-gray-400 hover:text-[var(--primary-color)]" data-target="Education">
-      <i class="fas fa-graduation-cap text-xl"></i>
-      <span class="text-xs">Education</span>
-    </a>
-    <a href="#" class="nav-item flex flex-col items-center text-gray-400 hover:text-[var(--primary-color)]" data-target="projects">
-      <i class="fas fa-laptop-code text-xl"></i>
-      <span class="text-xs">Projects</span>
-    </a>
-  </nav>
+<nav class="fixed bottom-0 left-0 right-0 md:hidden flex justify-around items-center p-3 bg-gradient-to-r from-purple-500 via-pink-500 to-orange-400 shadow-2xl rounded-t-3xl z-50">
   
+  <a href="../Pages/Dash.php" class="nav-item flex flex-col items-center text-white hover:text-yellow-300 transition duration-300" aria-label="Dashboard">
+    <i class="fas fa-gauge-high text-2xl"></i>
+    <span class="text-xs mt-1 font-medium">Dashboard</span>
+  </a>
+
+  <a href="../Pages/Intro.php" class="nav-item flex flex-col items-center text-white hover:text-green-300 transition duration-300" aria-label="Intro">
+    <i class="fas fa-user text-2xl"></i>
+    <span class="text-xs mt-1 font-medium">Intro</span>
+  </a>
+
+  <a href="../Pages/About.php" class="nav-item flex flex-col items-center text-white hover:text-blue-300 transition duration-300" aria-label="About">
+    <i class="fas fa-address-card text-2xl"></i>
+    <span class="text-xs mt-1 font-medium">About</span>
+  </a>
+
+  <div class="relative">
+    <button id="menuBtn" class="flex flex-col items-center text-white hover:text-purple-300 focus:outline-none transition duration-300" aria-label="More">
+      <i class="fas fa-bars text-2xl"></i>
+      <span class="text-xs mt-1 font-medium">More</span>
+    </button>
+
+    <div id="menuDropdown" class="hidden absolute bottom-14 right-1/2 transform translate-x-1/2 bg-gradient-to-b from-pink-400 via-purple-500 to-indigo-600 rounded-3xl shadow-2xl w-56 py-2 flex flex-col overflow-hidden transition-all duration-300">
+      
+      <a href="../Pages/Experience.php" class="flex items-center px-5 py-3 text-white hover:bg-indigo-400 hover:text-white rounded-xl transition duration-200">
+        <i class="fas fa-briefcase text-lg mr-3"></i>
+        <span class="text-sm font-medium">Experience</span>
+      </a>
+
+      <a href="../Pages/Tools.php" class="flex items-center px-5 py-3 text-white hover:bg-green-400 hover:text-white rounded-xl transition duration-200">
+        <i class="fas fa-toolbox text-lg mr-3"></i>
+        <span class="text-sm font-medium">Tools</span>
+      </a>
+
+      <a href="../Pages/Education.php" class="flex items-center px-5 py-3 text-white hover:bg-yellow-400 hover:text-white rounded-xl transition duration-200">
+        <i class="fas fa-graduation-cap text-lg mr-3"></i>
+        <span class="text-sm font-medium">Education</span>
+      </a>
+
+      <a href="../Pages/Project.php" class="flex items-center px-5 py-3 text-white hover:bg-purple-400 hover:text-white rounded-xl transition duration-200">
+        <i class="fas fa-laptop-code text-lg mr-3"></i>
+        <span class="text-sm font-medium">Projects</span>
+      </a>
+
+      <a href="../Pages/Certification.php" class="flex items-center px-5 py-3 text-white hover:bg-pink-400 hover:text-white rounded-xl transition duration-200">
+        <i class="fas fa-certificate text-lg mr-3"></i>
+        <span class="text-sm font-medium">Certificate</span>
+      </a>
+
+      <a href="../Pages/Contact.php" class="flex items-center px-5 py-3 text-white hover:bg-indigo-400 hover:text-white rounded-xl transition duration-200">
+        <i class="fas fa-envelope text-lg mr-3"></i>
+        <span class="text-sm font-medium">Contact</span>
+      </a>
+
+      <a href="../Pages/Settings.php" class="flex items-center px-5 py-3 text-white hover:bg-gray-500 hover:text-white rounded-xl transition duration-200">
+        <i class="fas fa-cog text-lg mr-3"></i>
+        <span class="text-sm font-medium">Settings</span>
+      </a>
+
+      <a href="../Backends/Auth/Logout.php" class="flex items-center px-5 py-3 text-white hover:bg-red-500 hover:text-white rounded-xl transition duration-200">
+        <i class="fas fa-sign-out-alt text-lg mr-3"></i>
+        <span class="text-sm font-medium">Logout</span>
+      </a>
+
+    </div>
+  </div>
+</nav>
+
+<script>
+  const menuBtn = document.getElementById('menuBtn');
+  const menuDropdown = document.getElementById('menuDropdown');
+
+  menuBtn.addEventListener('click', () => {
+    menuDropdown.classList.toggle('hidden');
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!menuBtn.contains(e.target) && !menuDropdown.contains(e.target)) {
+      menuDropdown.classList.add('hidden');
+    }
+  });
+</script>

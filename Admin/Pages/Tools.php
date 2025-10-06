@@ -1,33 +1,42 @@
 <?php
+include "../Backends/Session.php";
 include "../Backends/Tools/FetchTools.php";
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tools & Skills</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="../Css/globalStyle.css">
 </head>
-<body class="bg-gray-900 text-gray-100 font-sans">
 
-<div class="flex flex-col md:flex-row h-screen">
+<body class="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white font-sans">
 
-  <main class="flex-1 overflow-y-auto p-4 md:p-10 md:mr-20 space-y-8">
-    <h2 class="text-2xl font-bold text-blue-400 flex items-center">
-      <i class="fas fa-tools mr-2"></i> Tools & Skills
-    </h2>
+<div class="flex h-screen">
+
+  <main class="flex-1 overflow-y-auto p-4 md:p-8 md:mr-20 pb-24 md:pb-8">
+
+    <div class="mb-8">
+      <h1 class="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500">
+        Tools & Skills
+      </h1>
+      <p class="text-gray-400 mt-2">Manage your tools, skills, and proficiency levels here.</p>
+    </div>
 
     <!-- Add New Tool Form -->
-    <div class="bg-gray-800 p-4 md:p-6 rounded-xl shadow-md space-y-4">
-      <h3 class="text-lg font-semibold">Add New Tool</h3>
+    <div class="bg-gray-800/80 backdrop-blur-md p-6 rounded-2xl shadow-2xl mb-8 border border-gray-700 space-y-4">
+      <h2 class="text-2xl font-semibold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-green-400 to-blue-500">
+        Add New Tool
+      </h2>
       <form method="POST" enctype="multipart/form-data" action="../Backends/Tools/SubmitTools.php" class="space-y-3">
         <input type="text" name="name" placeholder="Tool Name (e.g. JavaScript)" 
-               class="w-full p-2 rounded bg-gray-700 border border-gray-600" required>
+               class="w-full p-3 rounded-xl bg-gray-700 border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-indigo-400" required>
 
-        <select name="category" class="w-full p-2 rounded bg-gray-700 border border-gray-600" required>
+        <select name="category" class="w-full p-3 rounded-xl bg-gray-700 border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-indigo-400" required>
             <option value="">Select Category</option>
             <option value="Frontend">Frontend</option>
             <option value="Backend">Backend</option>
@@ -36,19 +45,21 @@ include "../Backends/Tools/FetchTools.php";
         </select>
 
         <input type="number" name="proficiency" placeholder="Proficiency % (0-100)" min="0" max="100" 
-               class="w-full p-2 rounded bg-gray-700 border border-gray-600" required>
+               class="w-full p-3 rounded-xl bg-gray-700 border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-indigo-400" required>
 
-        <input type="file" name="icon" accept="image/*" class="w-full p-2 rounded bg-gray-700 border border-gray-600">
+        <input type="file" name="icon" accept="image/*" class="w-full p-2 rounded-xl bg-gray-700 border border-gray-600 text-white">
 
-        <button type="submit" class="w-full md:w-auto bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded text-white font-semibold">
+        <button type="submit" class="w-full sm:w-auto bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white px-6 py-2 rounded-xl font-semibold hover:scale-105 transition-transform duration-300">
           <i class="fas fa-plus mr-2"></i> Add Tool
         </button>
       </form>
     </div>
 
     <!-- Existing Tools Table -->
-    <div class="bg-gray-800 p-4 md:p-6 rounded-xl shadow-md overflow-x-auto">
-      <h3 class="text-lg font-semibold mb-4">Existing Tools</h3>
+    <div class="bg-gray-800/80 backdrop-blur-md p-6 rounded-2xl shadow-2xl border border-gray-700 overflow-x-auto">
+      <h2 class="text-2xl font-semibold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-yellow-400 to-red-500">
+        Existing Tools
+      </h2>
       <table class="min-w-full text-left border-collapse">
         <thead>
           <tr class="border-b border-gray-600">
@@ -78,23 +89,21 @@ include "../Backends/Tools/FetchTools.php";
               <span class="text-xs text-gray-400"><?= $tool['proficiency_percentage'] ?>%</span>
             </td>
             <td class="p-2 flex flex-col md:flex-row gap-2">
-                <!-- Edit Button -->
-                <button class="bg-yellow-500 hover:bg-yellow-600 w-28 h-10 rounded text-white text-sm flex items-center justify-center editToolBtn"
-                        data-id="<?= $tool['id'] ?>"
-                        data-name="<?= htmlspecialchars($tool['name']) ?>"
-                        data-category="<?= $tool['category'] ?>"
-                        data-proficiency="<?= $tool['proficiency_percentage'] ?>">
-                    <i class="fas fa-edit mr-1"></i> Edit
-                </button>
+              <button class="bg-yellow-500 hover:bg-yellow-600 w-28 h-10 rounded text-white text-sm flex items-center justify-center editToolBtn"
+                      data-id="<?= $tool['id'] ?>"
+                      data-name="<?= htmlspecialchars($tool['name']) ?>"
+                      data-category="<?= $tool['category'] ?>"
+                      data-proficiency="<?= $tool['proficiency_percentage'] ?>">
+                  <i class="fas fa-edit mr-1"></i> Edit
+              </button>
 
-                <!-- Delete Button -->
-                <form method="POST" action="../Backends/Tools/DeleteTools.php" onsubmit="return confirm('Are you sure you want to delete this tool?');">
-                    <input type="hidden" name="id" value="<?= $tool['id'] ?>">
-                    <button type="submit" class="bg-red-500 hover:bg-red-600 w-28 h-10 rounded text-white text-sm flex items-center justify-center">
-                    <i class="fas fa-trash-alt mr-1"></i> Delete
-                    </button>
-                </form>
-                </td>
+              <form method="POST" action="../Backends/Tools/DeleteTools.php" onsubmit="return confirm('Are you sure you want to delete this tool?');">
+                  <input type="hidden" name="id" value="<?= $tool['id'] ?>">
+                  <button type="submit" class="bg-red-600 hover:bg-red-700 w-28 h-10 rounded text-white text-sm flex items-center justify-center">
+                  <i class="fas fa-trash-alt mr-1"></i> Delete
+                  </button>
+              </form>
+            </td>
           </tr>
           <?php endforeach; ?>
         </tbody>
@@ -103,7 +112,7 @@ include "../Backends/Tools/FetchTools.php";
 
   </main>
 
-  <!-- Sidebar & Modal -->
+  <!-- Sidebar & Mobile Navigation -->
   <?php include "../component/sidebar.html"; ?>
   <?php include "../component/mobile-nav.html"; ?>
   <?php include "../component/Modal/EditTools.php"; ?>                        

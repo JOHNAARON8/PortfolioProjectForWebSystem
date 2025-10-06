@@ -10,7 +10,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $live_link = $conn->real_escape_string($_POST['live_link']);
     $tools = isset($_POST['tools']) ? $_POST['tools'] : '';
 
-    // Handle image upload
     $imagePath = null;
     if (isset($_FILES['cover_image']) && $_FILES['cover_image']['error'] === 0) {
         $targetDir = "../../../uploads/projects/";
@@ -24,7 +23,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (move_uploaded_file($_FILES['cover_image']['tmp_name'], $targetFile)) {
             $imagePath = $targetFile;
 
-            // Optionally, delete old image
             $oldImage = $conn->query("SELECT cover_image FROM projects WHERE id = $id")->fetch_assoc();
             if (!empty($oldImage['cover_image']) && file_exists($oldImage['cover_image'])) {
                 unlink($oldImage['cover_image']);
@@ -35,7 +33,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    // Update project data
     if ($imagePath) {
         $stmt = $conn->prepare("UPDATE projects SET title=?, short_description=?, full_description=?, live_link=?, cover_image=? WHERE id=?");
         $stmt->bind_param("sssssi", $title, $short_description, $full_description, $live_link, $imagePath, $id);
@@ -45,7 +42,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if ($stmt->execute()) {
-        // Update tools
         $conn->query("DELETE FROM project_tools WHERE project_id = $id"); // Remove old tools
         if (!empty($tools)) {
             $toolArray = explode(",", $tools);

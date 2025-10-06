@@ -6,7 +6,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $bio = trim($_POST['bio'] ?? '');
     $cvLink = trim($_POST['cvLink'] ?? '');
 
-    // Fetch current intro record
     $currentImage = null;
     $result = $conn->query("SELECT profile_image FROM introduction WHERE id = 1");
     if ($result->num_rows > 0) {

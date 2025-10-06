@@ -1,0 +1,45 @@
+<header class="max-w-8xl mx-auto flex justify-between items-center px-4 md:px-8 py-4 backdrop-blur-md bg-white/70 dark:bg-gray-900/70 sticky top-0 z-50 shadow-md">
+
+  <div class="flex items-center gap-3">
+    <div class="w-10 h-10 rounded-full bg-gradient-to-r from-indigo-500 to-pink-500 flex items-center justify-center shadow-md">
+      <span class="text-white font-bold">J</span>
+    </div>
+    <h1 class="text-2xl font-extrabold tracking-tight bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+      JARON Tech
+    </h1>
+  </div>
+
+  <nav id="desktopNav" class="flex gap-8 items-center text-gray-700 dark:text-gray-200 font-medium">
+    <a href="#about" class="hover:text-indigo-500 transition-colors flex items-center gap-1">
+      <i data-feather="user" class="w-4 h-4"></i> About
+    </a>
+    <a href="#experience" class="hover:text-indigo-500 transition-colors flex items-center gap-1">
+      <i data-feather="briefcase" class="w-4 h-4"></i> Experience
+    </a>
+    <a href="#education" class="hover:text-indigo-500 transition-colors flex items-center gap-1">
+      <i data-feather="book" class="w-4 h-4"></i> Education
+    </a>
+    <a href="#projects" class="hover:text-indigo-500 transition-colors flex items-center gap-1">
+      <i data-feather="folder" class="w-4 h-4"></i> Projects
+    </a>
+    <a href="#skills" class="hover:text-indigo-500 transition-colors flex items-center gap-1">
+      <i data-feather="cpu" class="w-4 h-4"></i> Skills
+    </a>
+    <a href="#contact" class="hover:text-indigo-500 transition-colors flex items-center gap-1">
+      <i data-feather="mail" class="w-4 h-4"></i> Contact
+    </a>
+
+    <button id="darkToggle" class="p-2 border border-gray-500 rounded-full bg-gray-200 dark:bg-gray-700">
+      <i data-feather="moon"></i>
+    </button>
+  </nav>
+
+  <button id="menuBtn" aria-label="Open Menu" class="p-2 border rounded-lg text-xl hover:bg-gray-200 dark:hover:bg-gray-700 transition">
+    <i data-feather="menu"></i>
+  </button>
+
+</header>
+
+<script>
+  feather.replace();
+</script>

@@ -1,0 +1,49 @@
+<div id="mobileMenu" 
+     class="fixed top-0 left-0 h-full w-64 bg-gradient-to-b from-pink-300/95 to-pink-100/95 
+            dark:from-gray-900 dark:to-gray-800 backdrop-blur-lg shadow-2xl 
+            transform -translate-x-full transition-transform duration-500 ease-in-out 
+            z-50 flex flex-col">
+
+  <div class="flex items-center gap-3 p-6 border-b border-white/30 dark:border-gray-700 flex-shrink-0">
+    <div class="w-12 h-12 rounded-full bg-white/70 dark:bg-gray-700 flex items-center justify-center shadow-md">
+      <img class="w-12 h-12 rounded-full object-cover" src="./assets/profile.png" alt="">
+    </div>
+    <div>
+      <h3 class="font-bold text-gray-800 dark:text-white text-sm sm:text-base">John Aron</h3>
+      <p class="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Web Developer</p>
+    </div>
+    <button id="closeMenu" class="ml-auto p-2 rounded-full hover:bg-white/50 dark:hover:bg-gray-700 transition">
+      <i data-feather="x"></i>
+    </button>
+  </div>
+
+  <nav class="flex-1 overflow-y-auto p-6 flex flex-col gap-2">
+    <a href="#about" class="flex items-center gap-4 p-3 rounded-xl hover:bg-white/70 dark:hover:bg-gray-700 transition">
+      <i data-feather="info"></i> <span>About</span>
+    </a>
+    <a href="#experience" class="flex items-center gap-4 p-3 rounded-xl hover:bg-white/70 dark:hover:bg-gray-700 transition">
+      <i data-feather="briefcase"></i> <span>Experience</span>
+    </a>
+    <a href="#education" class="flex items-center gap-4 p-3 rounded-xl hover:bg-white/70 dark:hover:bg-gray-700 transition">
+      <i data-feather="book"></i> <span>Education</span>
+    </a>
+    <a href="#projects" class="flex items-center gap-4 p-3 rounded-xl hover:bg-white/70 dark:hover:bg-gray-700 transition">
+      <i data-feather="folder"></i> <span>Projects</span>
+    </a>
+    <a href="#skills" class="flex items-center gap-4 p-3 rounded-xl hover:bg-white/70 dark:hover:bg-gray-700 transition">
+      <i data-feather="cpu"></i> <span>Skills</span>
+    </a>
+    <a href="#contact" class="flex items-center gap-4 p-3 rounded-xl hover:bg-white/70 dark:hover:bg-gray-700 transition">
+      <i data-feather="mail"></i> <span>Contact</span>
+    </a>
+  </nav>
+
+  <div class="p-6 border-t border-white/30 dark:border-gray-700 flex justify-between items-center flex-shrink-0">
+    <span class="text-sm text-gray-700 dark:text-gray-400">Theme Mode</span>
+    <button id="darkToggleMobile" 
+            class="p-2 border border-gray-500 dark:border-gray-400 rounded-full hover:bg-white/50 dark:hover:bg-gray-700 transition">
+      <i data-feather="moon"></i>
+    </button>
+  </div>
+
+</div>
